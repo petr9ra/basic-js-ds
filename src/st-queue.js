@@ -14,17 +14,27 @@ const { ListNode } = require('../extensions/list-node.js');
  * queue.getUnderlyingList() // returns { value: 3, next: null }
  */
 module.exports = class Queue {
-
-  getUnderlyingList() {
-    
+  constructor() {
+    this.node = null;
   }
 
-  enqueue(value ) {
-    
+  getUnderlyingList() {
+    return this.node;
+  }
+
+  enqueue(value) {
+    if (this.node) {
+      let curr = this.node;
+      while(curr.next) curr = curr.next;
+      curr.next = new ListNode(value);
+    } else {
+      this.node = new ListNode(value);
+    }
   }
 
   dequeue() {
-    
+    let value = this.node.value;
+    this.node = this.node.next;
+    return value
   }
-
 }
